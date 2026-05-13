@@ -1,0 +1,657 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* =========================================================
+   GLOBAL & BACKGROUND (BIOLOGICAL GLASSMORPHISM)
+   ========================================================= */
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #e2e8f0; /* Lighter text for the darker theme */
+  /* Deep Microscope Fluid Base */
+  background-color: #0b1521;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(13, 148, 136, 0.15), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(56, 189, 248, 0.1), transparent 40%);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+
+/* Container for all biological entities */
+.microbiology-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.05));
+}
+
+/* --- LARGE MORPHING CELLS --- */
+.cell {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(125, 211, 252, 0.2);
+  box-shadow: 
+    inset 0 0 40px rgba(56, 189, 248, 0.1), 
+    0 0 20px rgba(13, 148, 136, 0.1);
+}
+
+.cell-1 {
+  width: 45vh; height: 45vh;
+  top: 10%; left: 15%;
+  animation: morphCell 18s infinite alternate ease-in-out, driftCell 25s infinite alternate linear;
+}
+
+.cell-2 {
+  width: 35vh; height: 35vh;
+  bottom: 5%; right: 10%;
+  border-color: rgba(45, 212, 191, 0.2);
+  box-shadow: inset 0 0 30px rgba(45, 212, 191, 0.1);
+  animation: morphCell 22s infinite alternate-reverse ease-in-out, driftCell 30s infinite alternate-reverse linear;
+}
+
+/* --- SWIMMING BACTERIA (Rod Shaped) --- */
+.bacteria {
+  position: absolute;
+  width: 100px; height: 30px;
+  background: rgba(13, 148, 136, 0.15);
+  border: 1px solid rgba(45, 212, 191, 0.4);
+  border-radius: 50px; /* Makes them pill/rod shaped */
+  box-shadow: inset 0 0 10px rgba(20, 184, 166, 0.3), 0 0 15px rgba(20, 184, 166, 0.2);
+  backdrop-filter: blur(2px);
+}
+
+.bac-1 {
+  top: 30%; left: -10%;
+  animation: swimRight 20s infinite linear;
+}
+
+.bac-2 {
+  bottom: 25%; right: -10%;
+  width: 70px; height: 22px;
+  animation: swimLeft 15s infinite linear 5s; /* 5s delay */
+}
+
+.bac-3 {
+  top: 60%; left: -10%;
+  width: 120px; height: 35px;
+  filter: blur(4px); /* Out of focus effect */
+  animation: swimRight 35s infinite linear 12s;
+}
+
+/* --- THE NEW BACTERIA SWARM --- */
+
+/* Fast, tiny one in the mid-ground */
+.bac-4 {
+  top: 15%; right: -10%;
+  width: 60px; height: 20px;
+  animation: swimLeft 18s infinite linear 2s;
+}
+
+/* Massive, deeply blurred one (looks like it's far behind the glass) */
+.bac-5 {
+  bottom: 10%; left: -20%;
+  width: 160px; height: 45px;
+  filter: blur(8px);
+  opacity: 0.5;
+  animation: swimRight 45s infinite linear;
+}
+
+/* Medium one coming from the bottom right */
+.bac-6 {
+  top: 75%; right: -15%;
+  width: 85px; height: 25px;
+  filter: blur(2px);
+  animation: swimLeft 25s infinite linear 8s;
+}
+
+/* Very fast, sharp little guy */
+.bac-7 {
+  top: 45%; left: -10%;
+  width: 45px; height: 16px;
+  animation: swimRight 14s infinite linear 17s;
+}
+
+/* Huge blurry one coming from top right */
+.bac-8 {
+  top: 5%; right: -20%;
+  width: 130px; height: 35px;
+  filter: blur(6px);
+  opacity: 0.7;
+  animation: swimLeft 32s infinite linear 22s;
+}
+
+/* --- TINY FLOATING PARTICLES --- */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.p-1 { width: 8px; height: 8px; top: 20%; left: 40%; animation: floatUp 15s infinite linear; }
+.p-2 { width: 12px; height: 12px; top: 80%; left: 60%; animation: floatUp 25s infinite linear 3s; filter: blur(2px); }
+.p-3 { width: 5px; height: 5px; top: 50%; left: 80%; animation: floatUp 10s infinite linear 7s; }
+
+/* =========================================================
+   ANIMATION KEYFRAMES
+   ========================================================= */
+
+/* Morphing shape for the large cells */
+@keyframes morphCell {
+  0% { border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%; }
+  33% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; }
+  66% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; }
+  100% { border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%; }
+}
+
+/* Slow drift for the large cells */
+@keyframes driftCell {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(5vw, 8vh) rotate(15deg); }
+}
+
+/* Bacteria swimming across the screen */
+@keyframes swimRight {
+  0% { transform: translate(0, 0) rotate(-15deg); }
+  25% { transform: translate(30vw, -10vh) rotate(-5deg); }
+  50% { transform: translate(60vw, 5vh) rotate(-20deg); }
+  100% { transform: translate(120vw, -20vh) rotate(-10deg); }
+}
+
+@keyframes swimLeft {
+  0% { transform: translate(0, 0) rotate(15deg); }
+  50% { transform: translate(-60vw, -15vh) rotate(25deg); }
+  100% { transform: translate(-120vw, 10vh) rotate(10deg); }
+}
+
+/* Particles bubbling up */
+@keyframes floatUp {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(-50vh) translateX(20px); opacity: 0; }
+}
+
+/* Animated Microscopic Float Effect */
+body::before, body::after {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(60px);
+  z-index: -1;
+  animation: float 20s infinite ease-in-out alternate;
+}
+
+body::before {
+  width: 40vw;
+  height: 40vw;
+  background: rgba(13, 148, 136, 0.1);
+  top: -10%;
+  left: -10%;
+}
+
+body::after {
+  width: 35vw;
+  height: 35vw;
+  background: rgba(37, 99, 235, 0.1);
+  bottom: -10%;
+  right: -5%;
+  animation-delay: -5s;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(5% , 5%) scale(1.1); }
+}
+
+/* =========================================================
+   LAYOUT SHELL
+   ========================================================= */
+.app-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: transparent;
+}
+
+.sidebar {
+  width: 260px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  z-index: 10;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.02);
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.sidebar-brand h2 {
+  font-size: 1.25rem;
+  color: #1e3a8a;
+  margin: 0;
+}
+
+.sidebar-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-radius: 8px;
+  color: #64748b;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.nav-item:hover {
+  background: rgba(241, 245, 249, 0.6);
+  color: #1e293b;
+}
+
+.nav-item.active {
+  background: rgba(239, 246, 255, 0.6);
+  color: #0d9488;
+}
+
+.sidebar-footer {
+  border-top: 1px solid rgba(226, 232, 240, 0.5);
+  padding-top: 1.5rem;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: rgba(219, 234, 254, 0.6);
+  color: #0d9488;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 0.9rem;
+}
+
+.user-role {
+  color: #64748b;
+  font-size: 0.8rem;
+}
+
+.logout-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: rgba(254, 242, 242, 0.6);
+  color: #ef4444;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.logout-btn:hover {
+  background: rgba(254, 226, 226, 0.8);
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.topbar {
+  height: 70px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  z-index: 5;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  width: 300px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.search-bar input {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: #1e293b;
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.icon-btn:hover {
+  background: rgba(241, 245, 249, 0.6);
+  color: #1e293b;
+}
+
+.page-container {
+  flex: 1;
+  padding: 2.5rem;
+  overflow-y: auto;
+}
+
+/* =========================================================
+   DARK GLASS LAYOUT & CARDS (OBSIDIAN THEME)
+   ========================================================= */
+
+.app-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* Dark Frosted Sidebar */
+.sidebar {
+  width: 260px;
+  background: rgba(11, 21, 33, 0.65); /* Deep dark background */
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-right: 1px solid rgba(56, 189, 248, 0.15); /* Subtle cyan border */
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  z-index: 10;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-brand h2 {
+  font-size: 1.25rem;
+  color: #f8fafc; /* Crisp white */
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-radius: 8px;
+  color: #94a3b8; /* Icy gray-blue for unselected */
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.nav-item:hover {
+  background: rgba(56, 189, 248, 0.1);
+  color: #e2e8f0;
+}
+
+.nav-item.active {
+  background: rgba(13, 148, 136, 0.2);
+  color: #2dd4bf; /* Glowing teal for active */
+  border: 1px solid rgba(45, 212, 191, 0.2);
+}
+
+.user-name {
+  font-weight: 600;
+  color: #f8fafc;
+  font-size: 0.9rem;
+}
+
+.user-role {
+  color: #94a3b8;
+  font-size: 0.8rem;
+}
+
+/* Dark Frosted Topbar */
+.topbar {
+  height: 70px;
+  background: rgba(11, 21, 33, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  z-index: 5;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  width: 300px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.search-bar input {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: #f8fafc;
+}
+
+.search-bar input::placeholder {
+  color: #64748b;
+}
+
+/* Main Dark Glass Card */
+.glass-card {
+  background: rgba(15, 23, 42, 0.65); /* Obsidian glass */
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(125, 211, 252, 0.15); /* Frosty light blue edge */
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Dark Metric Boxes */
+.metric-box {
+  background: rgba(30, 41, 59, 0.5) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(125, 211, 252, 0.1) !important;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.metric-label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8; /* Crisp icy label */
+}
+
+/* Text elements inside React components that used inline styles need to inherit this */
+.glass-card h2, .glass-card h3 {
+  color: #f8fafc !important; /* Force headings to white */
+}
+.glass-card p {
+  color: #cbd5e1 !important; /* Force paragraphs to light gray */
+}
+
+/* =========================================================
+   UPLOAD & RECORDING ZONE
+   ========================================================= */
+.upload-zone {
+  border: 2px dashed rgba(56, 189, 248, 0.3);
+  border-radius: 16px;
+  padding: 4rem 2rem;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(15, 23, 42, 0.4);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-zone.active {
+  border-color: #2dd4bf;
+  background: rgba(45, 212, 191, 0.1);
+  transform: scale(1.02);
+}
+
+.mode-toggle {
+  display: flex;
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 12px;
+  padding: 0.25rem;
+  margin-bottom: 2rem;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid rgba(125, 211, 252, 0.15);
+}
+
+.mode-btn {
+  color: #94a3b8;
+}
+
+.mode-btn.active {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.timer-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-top: 1.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================================
+   TEXT, BUTTONS & PILLS
+   ========================================================= */
+
+/* Brighter gradient for dark mode */
+.text-gradient {
+  background: linear-gradient(135deg, #2dd4bf 0%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+/* Vibrant Action Button */
+.btn-premium {
+  background: linear-gradient(135deg, #0d9488 0%, #0284c7 100%);
+  color: white;
+  border: 1px solid rgba(45, 212, 191, 0.5);
+  padding: 1rem 2.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(13, 148, 136, 0.4);
+  transition: all 0.3s ease;
+}
+
+.btn-premium:hover:not(:disabled) {
+  box-shadow: 0 6px 25px rgba(13, 148, 136, 0.6);
+  transform: translateY(-2px);
+  border-color: rgba(45, 212, 191, 0.8);
+}
+
+/* Dark mode pills for symptoms/actions */
+.pill {
+  background: rgba(30, 41, 59, 0.8);
+  color: #e2e8f0;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+/* =========================================================
+   UTILITIES
+   ========================================================= */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}

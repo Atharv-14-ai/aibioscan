@@ -1,0 +1,11 @@
+# src/auth.py
+import bcrypt
+
+def hash_password(password: str) -> str:
+    """Return bcrypt hash (decoded to str)."""
+    pw = password.encode("utf-8")
+    salt = bcrypt.gensalt(rounds=12)
+    return bcrypt.hashpw(pw, salt).decode("utf-8")
+
+def verify_password(password: str, password_hash: str) -> bool:
+    return bcrypt.checkpw(password.encode("utf-8"), password_hash.encode("utf-8"))

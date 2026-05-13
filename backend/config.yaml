@@ -1,0 +1,27 @@
+# Audio preprocessing
+
+sample_rate: 16000
+duration_sec: 3.0
+n_mfcc: 40
+mono: true
+n_fft: 512         
+hop_length: 160    
+win_length: 400    
+feature_type: mfcc
+
+
+# Training hyperparameters
+batch_size: 32
+epochs: 40
+learning_rate: 0.0005
+
+# Paths
+model_dir: models
+model_name: bioscan_cnn.h5
+
+# Classes
+classes:
+  - Pneumonia
+  - Healthy
+  - Asthma
+  - Tuberculosis   
