@@ -1,4 +1,3 @@
-```gitignore
 # Dependencies
 node_modules/
 .pnp
@@ -61,7 +60,7 @@ public/uploads/
 # Docker
 .dockerignore
 
-# Optional: Python (if your project includes ML models)
+# Python
 __pycache__/
 *.py[cod]
 *.pyo
@@ -71,16 +70,11 @@ venv/
 env/
 ENV/
 .ipynb_checkpoints/
-*.joblib
-*.pkl
-*.h5
 
-# Optional: Flutter (if your project includes a Flutter app)
+# Flutter
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
 .pub-cache/
 .pub/
-build/
-```
