@@ -99,12 +99,7 @@ function Auth({ onLogin }) {
           </div>
         )}
 
-        <button
-          type="submit"
-          className="upload-btn"
-          disabled={loading}
-          style={{ width: "100%" }}
-        >
+        <button type="submit" className="auth-btn" disabled={loading}>
           {loading ? "Processing..." : isLogin ? "Sign In" : "Sign Up"}
         </button>
       </form>
