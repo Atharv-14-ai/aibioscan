@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import API from "../services/api";
 import { UserPlus, LogIn, AlertCircle } from "lucide-react";
 
 function Auth({ onLogin }) {
@@ -19,16 +19,13 @@ function Auth({ onLogin }) {
 
     try {
       if (isLogin) {
-        const res = await axios.post("http://localhost:8000/api/login", {
+        const res = await API.post("/api/login", {
           email: formData.email,
           password: formData.password,
         });
         onLogin(res.data.user);
       } else {
-        const res = await axios.post(
-          "http://localhost:8000/api/signup",
-          formData,
-        );
+        const res = await API.post("/api/signup", formData);
         // Auto-login after signup
         onLogin({
           id: res.data.user_id,

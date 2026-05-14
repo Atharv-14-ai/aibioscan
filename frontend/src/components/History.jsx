@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import axios from "axios";
+import API from "../services/api";
 import {
   Clock,
   Activity,
@@ -23,9 +23,7 @@ function History({ user }) {
     try {
       setLoading(true);
       setError(null);
-      const res = await axios.get(
-        `http://localhost:8000/api/reports/${user.id}`,
-      );
+      const res = await API.get(`/api/reports/${user.id}`);
       setReports(res.data.reports);
     } catch (err) {
       console.error("Failed to fetch reports", err);
@@ -489,7 +487,7 @@ function History({ user }) {
                     <button
                       onClick={() =>
                         window.open(
-                          `http://localhost:8000/api/reports/${report.id}/pdf`,
+                          `${import.meta.env.VITE_API_URL}/api/reports/${report.id}/pdf`,
                           "_blank",
                         )
                       }

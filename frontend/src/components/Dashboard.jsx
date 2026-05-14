@@ -11,7 +11,7 @@ import {
   MapPin,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import axios from "axios";
+import API from "../services/api";
 
 function Dashboard({ user }) {
   const [data, setData] = useState({
@@ -35,9 +35,7 @@ function Dashboard({ user }) {
     const fetchDashboardData = async () => {
       try {
         // Fetch the user's actual reports from the backend
-        const res = await axios.get(
-          `http://localhost:8000/api/reports/${user.id}`,
-        );
+        const res = await API.get(`/api/reports/${user.id}`);
         const reports = res.data.reports;
 
         // Calculate dynamic stats
@@ -230,7 +228,6 @@ function Dashboard({ user }) {
         </motion.div>
       )}
 
-     
       {/* ================================================ */}
       {/* RESPIRATORY HEALTH HUB (EDUCATIONAL SECTION)       */}
       {/* ================================================ */}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import API from "../services/api";
 import { motion } from "framer-motion";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import { Stethoscope, AlertCircle, Activity, HeartPulse } from "lucide-react";
@@ -19,7 +19,7 @@ function ClinicalOverview() {
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/api/analytics");
+        const res = await API.get("/api/analytics");
         const chartData = Object.entries(res.data.distribution).map(
           ([name, value]) => ({
             name,

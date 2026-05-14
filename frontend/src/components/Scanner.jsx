@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import axios from "axios";
+import API from "../services/api";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
 import {
@@ -156,11 +156,9 @@ function Scanner({ user }) {
     if (user) formData.append("user_id", user.id);
 
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/predict",
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } },
-      );
+      const response = await API.post("/api/predict", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       setResult(response.data);
       confetti({
         particleCount: 100,
