@@ -99,7 +99,11 @@ function Auth({ onLogin }) {
           </div>
         )}
 
-        <button type="submit" className="auth-btn" disabled={loading}>
+        <button
+          type="submit"
+          className="auth-btn"
+          disabled={loading}
+        >
           {loading ? "Processing..." : isLogin ? "Sign In" : "Sign Up"}
         </button>
       </form>
