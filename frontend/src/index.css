@@ -1421,3 +1421,61 @@ img {
     border-radius: 8px;
   }
 }
+
+
+/* =========================================================
+   FIX: MOBILE OVERFLOW & DYNAMIC VIEWPORT
+   ========================================================= */
+
+/* Use dvh (dynamic viewport height) for mobile-friendly sizing */
+@media (max-width: 768px) {
+  /* Main layout uses 100dvh to adapt to address bar changes */
+  .app-layout {
+    height: 100dvh;
+    min-height: 100dvh;
+  }
+
+  /* Sidebar also adapts */
+  .sidebar {
+    height: 100dvh;
+  }
+
+  /* Ensure page container takes remaining height and adds bottom spacing */
+  .page-container {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: var(--spacing-xl); /* extra bottom space for last item */
+    -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
+  }
+
+  /* Prevent content from being cut off by adding extra bottom margin to last card */
+  .glass-card:last-child {
+    margin-bottom: var(--spacing-md);
+  }
+
+  /* Ensure main-content properly constrains its children */
+  .main-content {
+    overflow: hidden; /* keep as is */
+    flex: 1;
+    min-height: 0;   /* allow flex child to shrink */
+  }
+}
+
+/* For all mobile devices (small), increase bottom padding */
+@media (max-width: 480px) {
+  .page-container {
+    padding-bottom: var(--spacing-2xl);
+  }
+}
+
+/* Safety: ensure the dashboard container doesn't overflow horizontally */
+.dashboard-container {
+  overflow-x: hidden;
+}
+
+/* Optional: add a scrollable container for long lists */
+.results-grid,
+.doctor-grid,
+.health-hub-grid {
+  overflow: visible;
+}
