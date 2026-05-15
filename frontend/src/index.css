@@ -1238,6 +1238,7 @@ body {
   font-size: 0.875rem;
   opacity: 0.8;
 }
+
 /* =========================================================
    RESPONSIVE BREAKPOINTS
    ========================================================= */
@@ -1247,101 +1248,115 @@ body {
   .env-banner {
     flex-direction: column;
     align-items: stretch;
-    padding: 0.75rem;
-    gap: 0.75rem;
+    padding: 0.9rem;
+    gap: 0.9rem;
   }
-  
+
   .env-content {
     gap: 0.75rem;
     flex: 1;
   }
-  
+
   .env-icon-wrapper {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
   }
-  
+
   .env-title {
-    font-size: 0.9rem;
-    margin-bottom: 0.1rem;
+    font-size: 1rem;
+    margin-bottom: 0.15rem;
+    font-weight: 600;
   }
-  
+
   .env-desc {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
+    line-height: 1.4;
   }
-  
-  /* FIX: Keep metrics in a single row horizontally */
+
+  /* Metrics stay in one row with larger text */
   .env-metrics {
     width: 100%;
     display: flex;
-    flex-direction: row !important;  /* Force horizontal layout */
+    flex-direction: row !important;
     justify-content: space-around;
-    gap: 1rem;
-    flex-wrap: nowrap !important;    /* Prevent wrapping */
+    gap: 1.25rem;
+    flex-wrap: nowrap !important;
   }
-  
+
   .env-metric-item {
     flex: 1;
     text-align: center;
     white-space: nowrap;
   }
-  
+
   .env-metric-value {
-    font-size: 1rem;
+    font-size: 1.5rem; /* Increased from 1rem */
+    font-weight: 700;
+    line-height: 1.1;
   }
-  
+
   .env-metric-label {
-    font-size: 0.65rem;
+    font-size: 0.8rem; /* Increased from 0.65rem */
+    margin-top: 0.2rem;
   }
 }
 
-/* Small phones - still keep them in same row */
+/* Small phones */
 @media (max-width: 480px) {
   .env-banner {
-    padding: 0.6rem;
+    padding: 0.75rem;
   }
-  
+
   .env-icon-wrapper {
-    width: 32px;
-    height: 32px;
-    font-size: 0.8rem;
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
   }
-  
+
   .env-title {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
-  
+
   .env-desc {
-    font-size: 0.65rem;
+    font-size: 0.75rem;
   }
-  
-  /* Keep metrics in same row even on small phones */
+
   .env-metrics {
-    gap: 0.5rem;
+    gap: 0.75rem;
     justify-content: space-between;
   }
-  
+
   .env-metric-value {
-    font-size: 0.85rem;
+    font-size: 1.25rem; /* Increased from 0.85rem */
+    font-weight: 700;
   }
-  
+
   .env-metric-label {
-    font-size: 0.55rem;
+    font-size: 0.7rem; /* Increased from 0.55rem */
   }
 }
 
-/* Extra small devices - still horizontal! */
+/* Extra small devices */
 @media (max-width: 380px) {
   .env-metrics {
-    gap: 0.35rem;
+    gap: 0.5rem;
   }
-  
+
   .env-metric-value {
-    font-size: 0.75rem;
+    font-size: 1.1rem; /* Increased from 0.75rem */
+    font-weight: 700;
   }
-  
+
   .env-metric-label {
-    font-size: 0.5rem;
+    font-size: 0.65rem; /* Increased from 0.5rem */
+  }
+
+  .env-title {
+    font-size: 0.85rem;
+  }
+
+  .env-desc {
+    font-size: 0.7rem;
   }
 }
 
