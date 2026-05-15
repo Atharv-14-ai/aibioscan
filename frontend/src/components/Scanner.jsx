@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import API from "../services/api";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
+import axios from "axios";
 import {
   UploadCloud,
   FileAudio,
