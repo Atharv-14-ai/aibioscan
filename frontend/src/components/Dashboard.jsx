@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import API from "../services/api";
+import axios from "axios";
 
 function Dashboard({ user }) {
   const [data, setData] = useState({
@@ -36,7 +37,7 @@ function Dashboard({ user }) {
       try {
         // Fetch the user's actual reports from the backend
         const res = await API.get(`/api/reports/${user.id}`);
-        const reports = res.data.reports;
+        const reports = res.data?.reports ?? [];
 
         // Calculate dynamic stats
         const anomaliesCount = reports.filter(
