@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import {
   Activity,
@@ -11,8 +11,8 @@ import {
   MapPin,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import API from "../services/api";
 import axios from "axios";
+import API from "../services/api";
 
 function Dashboard({ user }) {
   const [data, setData] = useState({
@@ -30,73 +30,122 @@ function Dashboard({ user }) {
     status: "loading",
     error: false,
   });
+  const [refreshing, setRefreshing] = useState(false);
+  const [touchStartY, setTouchStartY] = useState(null);
+  const [pullDistance, setPullDistance] = useState(0);
 
-  // Fetch Patient History
-  useEffect(() => {
-    const fetchDashboardData = async () => {
-      try {
-        // Fetch the user's actual reports from the backend
-        const res = await API.get(`/api/reports/${user.id}`);
-        const reports = res.data?.reports ?? [];
+  const isPageAtTop = () =>
+    window.scrollY === 0 ||
+    document.documentElement.scrollTop === 0 ||
+    document.body.scrollTop === 0;
 
-        // Calculate dynamic stats
-        const anomaliesCount = reports.filter(
-          (r) => r.disease !== "Healthy",
-        ).length;
-        const healthyCount = reports.filter(
-          (r) => r.disease === "Healthy",
-        ).length;
+  const fetchDashboardData = useCallback(async () => {
+    try {
+      const res = await API.get(`/api/reports/${user.id}`);
+      const reports = res.data?.reports ?? [];
 
-        setData({
-          totalScans: reports.length,
-          anomalies: anomaliesCount,
-          healthy: healthyCount,
-          recentReports: reports.slice(0, 3),
-          loading: false,
-        });
-      } catch (err) {
-        console.error("Failed to fetch dashboard data", err);
-        setData((prev) => ({ ...prev, loading: false }));
-      }
-    };
+      const anomaliesCount = reports.filter(
+        (r) => r.disease !== "Healthy",
+      ).length;
+      const healthyCount = reports.filter(
+        (r) => r.disease === "Healthy",
+      ).length;
 
-    fetchDashboardData();
+      setData({
+        totalScans: reports.length,
+        anomalies: anomaliesCount,
+        healthy: healthyCount,
+        recentReports: reports.slice(0, 3),
+        loading: false,
+      });
+    } catch (err) {
+      console.error("Failed to fetch dashboard data", err);
+      setData((prev) => ({ ...prev, loading: false }));
+    }
   }, [user.id]);
 
-  // --- NEW: Fetch Live Kolhapur Air Quality ---
-  useEffect(() => {
-    const fetchEnvironment = async () => {
-      try {
-        // Coordinates for Kolhapur, Maharashtra
-        const lat = 16.705;
-        const lon = 74.2433;
+  const fetchEnvironment = useCallback(async () => {
+    try {
+      const lat = 16.705;
+      const lon = 74.2433;
 
-        // Call the free Open-Meteo Air Quality API
-        const res = await axios.get(
-          `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=pm2_5,us_aqi`,
-        );
+      const res = await axios.get(
+        `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=pm2_5,us_aqi`,
+      );
 
-        const currentAqi = res.data.current.us_aqi;
-        const currentPm25 = res.data.current.pm2_5;
+      const currentAqi = res.data.current.us_aqi;
+      const currentPm25 = res.data.current.pm2_5;
 
-        // Logic Gate: Determine the threat level based on US EPA Standards
-        let currentStatus = "safe";
-        if (currentAqi > 100) currentStatus = "danger";
-        else if (currentAqi > 50) currentStatus = "warning";
+      let currentStatus = "safe";
+      if (currentAqi > 100) currentStatus = "danger";
+      else if (currentAqi > 50) currentStatus = "warning";
 
-        setEnvData({
-          aqi: currentAqi,
-          pm25: currentPm25,
-          status: currentStatus,
-          error: false,
-        });
-      } catch (err) {
-        console.error("Failed to fetch environmental data", err);
-        setEnvData((prev) => ({ ...prev, status: "error", error: true }));
-      }
-    };
-    fetchEnvironment();
+      setEnvData({
+        aqi: currentAqi,
+        pm25: currentPm25,
+        status: currentStatus,
+        error: false,
+      });
+    } catch (err) {
+      console.error("Failed to fetch environmental data", err);
+      setEnvData((prev) => ({ ...prev, status: "error", error: true }));
+    }
   }, []);
+
+  useEffect(() => {
+    const loadDashboardData = async () => {
+      await fetchDashboardData();
+    };
+    loadDashboardData();
+  }, [fetchDashboardData]);
+
+  useEffect(() => {
+    const loadEnvironment = async () => {
+      await fetchEnvironment();
+    };
+    loadEnvironment();
+  }, [fetchEnvironment]);
+
+  const refreshData = async () => {
+    setRefreshing(true);
+    try {
+      await Promise.all([fetchDashboardData(), fetchEnvironment()]);
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
+  const handleTouchStart = (event) => {
+    if (!isPageAtTop() || refreshing) return;
+    setTouchStartY(event.touches[0].clientY);
+    setPullDistance(0);
+  };
+
+  const handleTouchMove = (event) => {
+    if (touchStartY === null || refreshing) return;
+    const currentY = event.touches[0].clientY;
+    const deltaY = currentY - touchStartY;
+
+    if (deltaY > 0 && isPageAtTop()) {
+      event.preventDefault();
+      setPullDistance(Math.min(deltaY, 120));
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (refreshing) {
+      setTouchStartY(null);
+      setPullDistance(0);
+      return;
+    }
+
+    if (pullDistance >= 80) {
+      refreshData();
+    }
+
+    setTouchStartY(null);
+    setPullDistance(0);
+  };
 
   // Educational Data for the Health Hub
   const diseaseInfo = [
@@ -132,7 +181,41 @@ function Dashboard({ user }) {
   ];
 
   return (
-    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
+      <div
+        className="pull-to-refresh-indicator"
+        style={{
+          height: pullDistance,
+          maxHeight: 120,
+          display: "flex",
+          alignItems: "flex-end",
+          justifyContent: "center",
+          overflow: "hidden",
+          transition: touchStartY === null ? "height 0.2s ease" : "none",
+        }}
+      >
+        {(pullDistance > 0 || refreshing) && (
+          <span
+            style={{
+              color: "#94a3b8",
+              fontSize: "0.85rem",
+              marginBottom: "0.5rem",
+            }}
+          >
+            {refreshing
+              ? "Refreshing..."
+              : pullDistance >= 80
+                ? "Release to refresh"
+                : "Pull down to refresh"}
+          </span>
+        )}
+      </div>
       <div
         className="welcome-banner"
         style={{
