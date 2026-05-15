@@ -253,7 +253,7 @@ body {
   text-decoration: none;
   font-weight: 500;
   transition: all var(--transition-fast);
-  min-height: 48px; /* Touch-friendly */
+  min-height: 48px;
 }
 
 .nav-item:hover {
@@ -297,7 +297,7 @@ body {
 .user-info {
   display: flex;
   flex-direction: column;
-  min-width: 0; /* Allows text truncation */
+  min-width: 0;
 }
 
 .user-name {
@@ -340,7 +340,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  min-width: 0; /* Prevents flex overflow */
+  min-width: 0;
 }
 
 /* Dark Frosted Topbar */
@@ -1132,13 +1132,13 @@ body {
   -webkit-backdrop-filter: blur(12px);
   gap: var(--spacing-md);
   flex-wrap: wrap;
-  width: 100%;           /* Ensure it never exceeds parent */
+  width: 100%;
   max-width: 100%;
-  box-sizing: border-box; /* Already global but good to reinforce */
-  overflow: hidden;      /* Prevent any horizontal scroll */
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
-/* Status variations (unchanged) */
+/* Status variations */
 .env-banner.loading { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(148, 163, 184, 0.2); }
 .env-banner.safe { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); box-shadow: 0 4px 20px rgba(16, 185, 129, 0.05); }
 .env-banner.warning { background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); box-shadow: 0 4px 20px rgba(245, 158, 11, 0.05); }
@@ -1148,7 +1148,7 @@ body {
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
-  flex: 1 1 200px;       /* Flex-basis prevents squashing */
+  flex: 1 1 200px;
   min-width: 0;
 }
 
@@ -1162,7 +1162,7 @@ body {
   flex-shrink: 0;
 }
 
-/* Icon colors (unchanged) */
+/* Icon colors */
 .safe .env-icon-wrapper { background: rgba(16, 185, 129, 0.2); color: var(--success); }
 .warning .env-icon-wrapper { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
 .danger .env-icon-wrapper { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
@@ -1171,7 +1171,7 @@ body {
   margin: 0 0 0.25rem 0;
   font-size: clamp(0.95rem, 4vw, 1.1rem);
   color: var(--text-primary);
-  word-break: break-word; /* Prevents overflow from long words */
+  word-break: break-word;
 }
 
 .env-desc {
@@ -1185,14 +1185,14 @@ body {
   display: flex;
   gap: var(--spacing-lg);
   text-align: right;
-  flex-wrap: wrap;       /* Allows items to wrap on small screens */
+  flex-wrap: wrap;
   flex-shrink: 0;
 }
 
 .env-metric-item {
   display: flex;
   flex-direction: column;
-  white-space: nowrap;   /* Prevents labels from breaking apart */
+  white-space: nowrap;
 }
 
 .env-metric-value {
@@ -1222,19 +1222,18 @@ body {
   .env-metrics {
     width: 100%;
     justify-content: flex-start;
-    gap: var(--spacing-md);  /* Smaller gap on mobile */
-    flex-wrap: wrap;         /* Wrap if two metrics don't fit */
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
   }
   
   .env-metric-item {
-    white-space: normal;     /* Allow label/value to wrap if needed */
+    white-space: normal;
     text-align: left;
   }
   
-  /* Each metric takes at least 40% width, so two can share a row */
   .env-metric-item {
-    flex: 1 0 40%;          
-    min-width: 80px;         /* Prevent extreme squishing */
+    flex: 1 0 40%;
+    min-width: 80px;
   }
 }
 
@@ -1246,12 +1245,12 @@ body {
   }
   
   .env-content {
-    flex-wrap: wrap;         /* Allow icon and text to stack if needed */
+    flex-wrap: wrap;
     gap: var(--spacing-sm);
   }
   
   .env-metrics {
-    flex-direction: column;  /* Stack metrics vertically */
+    flex-direction: column;
     align-items: flex-start;
     gap: var(--spacing-sm);
   }
@@ -1345,31 +1344,23 @@ img {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-
   padding: 12px 18px;
-
   border: none;
   border-radius: 10px;
-
   background-color: #2563eb;
   color: #ffffff;
-
   font-size: 16px;
   font-weight: 600;
-
   cursor: pointer;
-
   transition: background-color 0.3s ease,
               transform 0.2s ease,
               box-shadow 0.3s ease;
-
   box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
 }
 
 .auth-btn:hover {
   background-color: #1d4ed8;
   transform: translateY(-1px);
-
   box-shadow: 0 6px 14px rgba(37, 99, 235, 0.4);
 }
 
@@ -1392,62 +1383,6 @@ img {
   }
 }
 
-
-<<<<<<< HEAD
-.auth-btn {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-
-  padding: 12px 18px;
-
-  border: none;
-  border-radius: 10px;
-
-  background-color: #2563eb;
-  color: #ffffff;
-
-  font-size: 16px;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition: background-color 0.3s ease,
-              transform 0.2s ease,
-              box-shadow 0.3s ease;
-
-  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
-}
-
-.auth-btn:hover {
-  background-color: #1d4ed8;
-  transform: translateY(-1px);
-
-  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.4);
-}
-
-.auth-btn:active {
-  transform: scale(0.98);
-}
-
-.auth-btn:disabled {
-  background-color: #93c5fd;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-/* Mobile Responsive */
-@media (max-width: 600px) {
-  .auth-btn {
-    padding: 10px 14px;
-    font-size: 14px;
-    border-radius: 8px;
-  }
-}
-
-
-=======
->>>>>>> 3c0fe3f (updated)
 /* =========================================================
    FIX: MOBILE OVERFLOW & DYNAMIC VIEWPORT
    ========================================================= */
@@ -1469,8 +1404,8 @@ img {
   .page-container {
     flex: 1;
     overflow-y: auto;
-    padding-bottom: var(--spacing-xl); /* extra bottom space for last item */
-    -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
+    padding-bottom: var(--spacing-xl);
+    -webkit-overflow-scrolling: touch;
   }
 
   /* Prevent content from being cut off by adding extra bottom margin to last card */
@@ -1480,9 +1415,9 @@ img {
 
   /* Ensure main-content properly constrains its children */
   .main-content {
-    overflow: hidden; /* keep as is */
+    overflow: hidden;
     flex: 1;
-    min-height: 0;   /* allow flex child to shrink */
+    min-height: 0;
   }
 }
 
@@ -1503,8 +1438,4 @@ img {
 .doctor-grid,
 .health-hub-grid {
   overflow: visible;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 3c0fe3f (updated)
