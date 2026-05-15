@@ -1118,7 +1118,7 @@ body {
 }
 
 /* =========================================================
-   ENVIRONMENTAL INTELLIGENCE BANNER
+   ENVIRONMENTAL INTELLIGENCE BANNER (FULLY RESPONSIVE)
    ========================================================= */
 .env-banner {
   border-radius: 16px;
@@ -1132,36 +1132,23 @@ body {
   -webkit-backdrop-filter: blur(12px);
   gap: var(--spacing-md);
   flex-wrap: wrap;
+  width: 100%;           /* Ensure it never exceeds parent */
+  max-width: 100%;
+  box-sizing: border-box; /* Already global but good to reinforce */
+  overflow: hidden;      /* Prevent any horizontal scroll */
 }
 
-.env-banner.loading {
-  background: rgba(30, 41, 59, 0.4);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-}
-
-.env-banner.safe {
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.05);
-}
-
-.env-banner.warning {
-  background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.05);
-}
-
-.env-banner.danger {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.1);
-}
+/* Status variations (unchanged) */
+.env-banner.loading { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(148, 163, 184, 0.2); }
+.env-banner.safe { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); box-shadow: 0 4px 20px rgba(16, 185, 129, 0.05); }
+.env-banner.warning { background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); box-shadow: 0 4px 20px rgba(245, 158, 11, 0.05); }
+.env-banner.danger { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); box-shadow: 0 4px 20px rgba(239, 68, 68, 0.1); }
 
 .env-content {
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
-  flex: 1;
+  flex: 1 1 200px;       /* Flex-basis prevents squashing */
   min-width: 0;
 }
 
@@ -1175,13 +1162,7 @@ body {
   flex-shrink: 0;
 }
 
-@media (max-width: 480px) {
-  .env-icon-wrapper {
-    width: 40px;
-    height: 40px;
-  }
-}
-
+/* Icon colors (unchanged) */
 .safe .env-icon-wrapper { background: rgba(16, 185, 129, 0.2); color: var(--success); }
 .warning .env-icon-wrapper { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
 .danger .env-icon-wrapper { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
@@ -1190,24 +1171,28 @@ body {
   margin: 0 0 0.25rem 0;
   font-size: clamp(0.95rem, 4vw, 1.1rem);
   color: var(--text-primary);
+  word-break: break-word; /* Prevents overflow from long words */
 }
 
 .env-desc {
   margin: 0;
   font-size: clamp(0.8rem, 3vw, 0.9rem);
   color: #cbd5e1;
+  word-break: break-word;
 }
 
 .env-metrics {
   display: flex;
   gap: var(--spacing-lg);
   text-align: right;
+  flex-wrap: wrap;       /* Allows items to wrap on small screens */
   flex-shrink: 0;
 }
 
 .env-metric-item {
   display: flex;
   flex-direction: column;
+  white-space: nowrap;   /* Prevents labels from breaking apart */
 }
 
 .env-metric-value {
@@ -1223,7 +1208,11 @@ body {
   color: var(--text-secondary);
 }
 
-/* Final responsive adjustments for env banner */
+/* =========================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================= */
+
+/* Tablet & below: switch to column layout */
 @media (max-width: 768px) {
   .env-banner {
     flex-direction: column;
@@ -1233,10 +1222,43 @@ body {
   .env-metrics {
     width: 100%;
     justify-content: flex-start;
+    gap: var(--spacing-md);  /* Smaller gap on mobile */
+    flex-wrap: wrap;         /* Wrap if two metrics don't fit */
   }
   
   .env-metric-item {
+    white-space: normal;     /* Allow label/value to wrap if needed */
     text-align: left;
+  }
+  
+  /* Each metric takes at least 40% width, so two can share a row */
+  .env-metric-item {
+    flex: 1 0 40%;          
+    min-width: 80px;         /* Prevent extreme squishing */
+  }
+}
+
+/* Small phones: stack metrics vertically */
+@media (max-width: 480px) {
+  .env-icon-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .env-content {
+    flex-wrap: wrap;         /* Allow icon and text to stack if needed */
+    gap: var(--spacing-sm);
+  }
+  
+  .env-metrics {
+    flex-direction: column;  /* Stack metrics vertically */
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+  
+  .env-metric-item {
+    flex: 1 0 auto;
+    width: 100%;
   }
 }
 
