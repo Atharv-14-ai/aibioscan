@@ -50,7 +50,7 @@ function Auth({ onLogin }) {
         )}
       </div>
       <h2
-        style={{ textAlign: "center", marginBottom: "2rem", color: "#1e293b" }}
+        style={{ textAlign: "center", marginBottom: "2rem", color: "#ffffff" }}
       >
         {isLogin ? "Welcome Back" : "Create Account"}
       </h2>
