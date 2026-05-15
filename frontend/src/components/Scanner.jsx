@@ -157,9 +157,7 @@ function Scanner({ user }) {
     if (user) formData.append("user_id", user.id);
 
     try {
-      const response = await API.post("/api/predict", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const response = await API.post("/api/predict", formData);
       setResult(response.data);
       confetti({
         particleCount: 100,
