@@ -1208,6 +1208,36 @@ body {
   color: var(--text-secondary);
 }
 
+
+/* Center the metric values above their labels */
+.env-metrics {
+  display: flex;
+  justify-content: center;   /* centers both metric blocks horizontally */
+  align-items: center;
+  gap: 2rem;                 /* space between AQI and PM2.5 */
+  margin-top: 1rem;
+}
+
+.env-metric-item {
+  display: flex;
+  flex-direction: column;    /* value on top, label below */
+  align-items: center;       /* centers both value and label */
+  text-align: center;
+}
+
+.env-metric-value {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.env-metric-label {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
 /* =========================================================
    RESPONSIVE BREAKPOINTS
    ========================================================= */
