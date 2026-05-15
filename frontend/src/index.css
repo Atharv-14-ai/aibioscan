@@ -1393,6 +1393,7 @@ img {
 }
 
 
+<<<<<<< HEAD
 .auth-btn {
   width: 100%;
   max-width: 100%;
@@ -1445,6 +1446,8 @@ img {
 }
 
 
+=======
+>>>>>>> 3c0fe3f (updated)
 /* =========================================================
    FIX: MOBILE OVERFLOW & DYNAMIC VIEWPORT
    ========================================================= */
@@ -1500,4 +1503,8 @@ img {
 .doctor-grid,
 .health-hub-grid {
   overflow: visible;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 3c0fe3f (updated)
