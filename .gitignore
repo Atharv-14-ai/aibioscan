@@ -78,3 +78,8 @@ ENV/
 .packages
 .pub-cache/
 .pub/
+
+# AIBioScan specific directories
+backend/user_reports/
+backend/heatmaps/
+backend/generated_reports/
