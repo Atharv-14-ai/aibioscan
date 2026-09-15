@@ -115,7 +115,7 @@ function ClinicalOverview() {
               fontWeight: "700",
             }}
           >
-            Epidemiology Overview
+            Global Analytics
           </h2>
           <p
             style={{

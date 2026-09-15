@@ -6,8 +6,8 @@ function Auth({ onLogin }) {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     full_name: "",
-    email: "",
-    password: "",
+    email: "test@user.com",
+    password: "password123",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);

@@ -30,7 +30,7 @@ function Layout({ user, onLogout }) {
     {
       path: "/analytics",
       icon: <PieChart size={20} />,
-      label: "Clinical Overview",
+      label: "Global Analytics",
     },
   ];
 
